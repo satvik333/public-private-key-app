@@ -34,7 +34,7 @@ function LoginPage() {
     if (!isValidEmail) {
       alert('Invalid email address. Please use an email ending with @kapturecx.com or @kapturecrm.com');
     }
-    return isValidEmail;
+    return isValidEmail; 
   }
 
   const handleLogin = async (event) => {
