@@ -1,14 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './UserForm.css';
-import { getPrivateKey } from '../services/applicationServices';
+import { getPrivateKey, getAllKeys } from '../services/applicationServices';
 
 const UserForm = () => {
   const [publicKey, setPublicKeyValue] = useState('');
+  const [privateKey, setPrivateKeyValue] = useState(null);
+  const [keys, setKeys] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let allKeys = await getAllKeys();
+        setKeys(allKeys);
+        console.log(keys,'kkkkkkkkkkkkkkkkkkkk')
+      } catch (error) {
+        console.error('Error fetching keys:', error);
+      }
+    };
+    fetchData(); 
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await getPrivateKey(publicKey);
-    console.log('Submitted value:', publicKey);
+    const result = await getPrivateKey(publicKey);
+    if (result.private_key) setPrivateKeyValue(result.private_key);
+    else setPrivateKeyValue(null);
   };
 
   return (
@@ -27,6 +43,10 @@ const UserForm = () => {
           Submit
         </button>
       </form>
+      <div className='private-key'>
+        { privateKey && <h2>Private Key is: {privateKey}</h2> }
+        { !privateKey && <h2>No Private key found for this Public Key</h2> }
+      </div>
     </div>
   );
 };

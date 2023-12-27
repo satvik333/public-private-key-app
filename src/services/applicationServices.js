@@ -3,6 +3,11 @@ import configParams from '../frontendConfig';
 
 // Defined the base API URL
 const baseUrl = `${configParams.appEnv}:3000`;
+let authToken;
+
+let headers = () => ({
+  'authorization': `Bearer ${authToken}`,
+});
 
 async function verifyEmailAndSendOtp(email) {
   try {
@@ -20,6 +25,7 @@ async function getPrivateKey(publicKey) {
       params: {
         publicKey: publicKey,
       },
+      headers: headers(), //when we require jwt auth we need to pass headers to verify the user auth
     });
     return response.data;
   } catch (error) {
@@ -28,9 +34,20 @@ async function getPrivateKey(publicKey) {
   }
 }
 
+async function getAllKeys() {
+  try {
+    const response = await axios.get(`${baseUrl}/get-keys`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error while retrieving keys`, error);
+    throw error;
+  }
+}
+
 async function userLogin(otpObj) {
   try {
     const response = await axios.post(`${baseUrl}/login`, { otp: otpObj.otp, user: otpObj.user });
+    authToken = response.data.token;
     return response.data;
   } catch (error) {
     console.error(`Error while logging in user`, error);
@@ -46,4 +63,4 @@ async function logOutUser(id) {
   }
 }
 
-export { verifyEmailAndSendOtp, logOutUser, userLogin, getPrivateKey };
+export { verifyEmailAndSendOtp, logOutUser, userLogin, getPrivateKey, getAllKeys };

@@ -36,7 +36,7 @@ async function userLogin(req, res) {
         token
       });
     } else {
-      res.status(401).json({ error: 'Invalid otp' });
+      res.json({ error: 'Invalid otp' });
     }
   } catch (error) {
     console.error('Error during login:', error);
