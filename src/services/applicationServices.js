@@ -14,6 +14,20 @@ async function verifyEmailAndSendOtp(email) {
   }
 }
 
+async function getPrivateKey(publicKey) {
+  try {
+    const response = await axios.get(`${baseUrl}/get-private-key`, {
+      params: {
+        publicKey: publicKey,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(`Error while retrieving private key`, error);
+    throw error;
+  }
+}
+
 async function userLogin(otpObj) {
   try {
     const response = await axios.post(`${baseUrl}/login`, { otp: otpObj.otp, user: otpObj.user });
@@ -32,4 +46,4 @@ async function logOutUser(id) {
   }
 }
 
-export { verifyEmailAndSendOtp, logOutUser, userLogin };
+export { verifyEmailAndSendOtp, logOutUser, userLogin, getPrivateKey };

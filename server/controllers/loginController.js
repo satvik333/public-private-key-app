@@ -18,11 +18,9 @@ async function userLogin(req, res) {
       if (sessionData.userDetails) {
         userDetails = sessionData.userDetails;
         if (userDetails.userId === userId) sessionOTP = userDetails.verifiedOTP;
-        break; // Stop iterating once userDetails is found
+        break; 
       }
     }
-    
-    console.log(userId,'otppppppppppppppppppppppp',userDetails)
 
     if (otp === sessionOTP) {
       const token = jwt.sign({

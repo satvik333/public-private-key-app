@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import './UserForm.css'; // Import the CSS file
+import './UserForm.css';
+import { getPrivateKey } from '../services/applicationServices';
 
 const UserForm = () => {
-  const [inputValue, setInputValue] = useState('');
+  const [publicKey, setPublicKeyValue] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // You can perform actions with the submitted value here
-    console.log('Submitted value:', inputValue);
+    await getPrivateKey(publicKey);
+    console.log('Submitted value:', publicKey);
   };
 
   return (
@@ -17,8 +18,8 @@ const UserForm = () => {
           Enter the Public key:
           <input
             type="text"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
+            value={publicKey}
+            onChange={(e) => setPublicKeyValue(e.target.value)}
             className="input-field"
           />
         </label>

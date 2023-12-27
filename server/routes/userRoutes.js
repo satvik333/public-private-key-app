@@ -9,7 +9,7 @@ const verifyEmailAndSendOtp = require('../controllers/emailVerificationAndOtpCon
 router.use(cors());
 router.use(express.json());
 
-router.post('/get-keys', authenticateToken, async (req, res) => { //pass authenticateToken as a middleware whenever authentication is required.
+router.get('/get-private-key', authenticateToken, async (req, res) => { //pass authenticateToken as a middleware whenever authentication is required.
   return await getPrivateKeys(req, res);
 });
 

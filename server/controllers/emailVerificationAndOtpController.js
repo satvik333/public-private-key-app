@@ -12,7 +12,7 @@ async function verifyEmailAndSendOtp(req, res) {
       res.status(401).json({ error: 'Invalid email address. Please use an email ending with @kapturecx.com or @kapturecrm.com' });
     }
     
-    const [results] = await connection.execute('SELECT * FROM users WHERE email = ?', [email]);
+    const [results] = await connection.execute('SELECT id, name, user_name, email FROM users WHERE email = ?', [email]);
     const user = results[0];
 
     if (user) {
