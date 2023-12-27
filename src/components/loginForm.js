@@ -3,7 +3,7 @@ import './loginpage.css';
 import { useNavigate } from 'react-router-dom';
 import { verifyEmailAndSendOtp, userLogin } from '../services/applicationServices'
 
-function LoginPage() {
+function LoginPage({onLogin}) {
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
   const [isOtpSent, setIsOtpSent] = useState(false);
@@ -23,6 +23,7 @@ function LoginPage() {
     if (validateEmail(email)) setIsOtpSent(true);
     let result = await verifyEmailAndSendOtp(email);
     setUser(result.user);
+    onLogin(user);
   };
 
   function validateEmail(email) {

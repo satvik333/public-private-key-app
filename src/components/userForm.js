@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import './UserForm.css';
 import { getPrivateKey, getAllKeys } from '../services/applicationServices';
+import AppBar from './kaptureAppBar';
+import { logOutUser } from '../services/applicationServices';
+import { useNavigate } from 'react-router-dom';
 
-const UserForm = () => {
+const UserForm = ({ loggedInUser }) => {
   const [publicKey, setPublicKeyValue] = useState('');
   const [privateKey, setPrivateKeyValue] = useState(null);
   const [keys, setKeys] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,8 +32,19 @@ const UserForm = () => {
     else setPrivateKeyValue(null);
   };
 
+  async function logout() {
+    console.log('logoutttttt')
+    navigate('/login')
+    await logOutUser(loggedInUser?.id);
+  }
+
   return (
     <div>
+      <AppBar loggedInUser={loggedInUser}/>
+      <button onClick={logout} className="log-out">
+        Logout
+      </button>
+      <div>Hiii{loggedInUser}</div>
       <form onSubmit={handleSubmit} className="user-form">
         <label>
           Enter the Public key:

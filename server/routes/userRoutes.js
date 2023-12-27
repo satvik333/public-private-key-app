@@ -22,6 +22,11 @@ router.post('/login', async (req, res) => {
   return await userLogin(req, res);
 });
 
+router.post('/logout', async (req, res) => {
+  console.log('logout')
+  //return await userLogin(req, res);
+});
+
 router.post('/verify-email', async (req, res) => {
   return await verifyEmailAndSendOtp(req, res);
 });

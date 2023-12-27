@@ -21,6 +21,7 @@ async function verifyEmailAndSendOtp(email) {
 
 async function getPrivateKey(publicKey) {
   try {
+    console.log(headers(),'hhhh1111111111111hhh')
     const response = await axios.get(`${baseUrl}/get-private-key`, {
       params: {
         publicKey: publicKey,
@@ -36,7 +37,8 @@ async function getPrivateKey(publicKey) {
 
 async function getAllKeys() {
   try {
-    const response = await axios.get(`${baseUrl}/get-keys`);
+    console.log(headers(),'hh2222222222222222hhh')
+    const response = await axios.get(`${baseUrl}/get-keys`, { headers: headers() });
     return response.data;
   } catch (error) {
     console.error(`Error while retrieving keys`, error);
@@ -48,6 +50,7 @@ async function userLogin(otpObj) {
   try {
     const response = await axios.post(`${baseUrl}/login`, { otp: otpObj.otp, user: otpObj.user });
     authToken = response.data.token;
+    console.log(authToken,'authhhhhhhhhhhhhhh')
     return response.data;
   } catch (error) {
     console.error(`Error while logging in user`, error);

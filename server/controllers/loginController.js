@@ -21,7 +21,7 @@ async function userLogin(req, res) {
         break; 
       }
     }
-
+    console.log(sessionOTP,'sssssssssssssssss')
     if (otp === sessionOTP) {
       const token = jwt.sign({
         userId: user._id,
