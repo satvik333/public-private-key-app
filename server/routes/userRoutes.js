@@ -23,7 +23,6 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/logout', async (req, res) => {
-  console.log('logout')
   //return await userLogin(req, res);
 });
 

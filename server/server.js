@@ -2,7 +2,6 @@ const express = require('express');
 const configParams = require('./configuration');
 const applicationRoutes = require('./routes/userRoutes');
 const session = require('express-session');
-const { verify } = require('jsonwebtoken');
 const store = new session.MemoryStore();
 
 const app = express();
@@ -10,7 +9,7 @@ const app = express();
 app.use(
   session({
     secret: '1234', // Change this to a secure key
-    cookie: { maxAge: 60000 },
+    cookie: { maxAge: 120000 },
     saveUninitialized: false,
     store: store,
     resave: false

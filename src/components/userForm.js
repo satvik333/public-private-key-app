@@ -4,6 +4,8 @@ import { getPrivateKey, getAllKeys } from '../services/applicationServices';
 import AppBar from './kaptureAppBar';
 import { logOutUser } from '../services/applicationServices';
 import { useNavigate } from 'react-router-dom';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
 
 const UserForm = ({ loggedInUser }) => {
   const [publicKey, setPublicKeyValue] = useState('');
@@ -11,19 +13,6 @@ const UserForm = ({ loggedInUser }) => {
   const [keys, setKeys] = useState([]);
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let allKeys = await getAllKeys();
-        setKeys(allKeys);
-        console.log(keys,'kkkkkkkkkkkkkkkkkkkk')
-      } catch (error) {
-        console.error('Error fetching keys:', error);
-      }
-    };
-    fetchData(); 
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,18 +22,28 @@ const UserForm = ({ loggedInUser }) => {
   };
 
   async function logout() {
-    console.log('logoutttttt')
     navigate('/login')
     await logOutUser(loggedInUser?.id);
+  }
+
+  async function clickedOnGetAllKeys() {
+    try {
+      let allKeys = await getAllKeys();
+      setKeys(allKeys);
+    } catch (error) {
+      console.error('Error fetching keys:', error);
+    }
   }
 
   return (
     <div>
       <AppBar loggedInUser={loggedInUser}/>
+      <button onClick={clickedOnGetAllKeys} className='get-all-keys'>
+        Get All Keys
+      </button>
       <button onClick={logout} className="log-out">
         Logout
       </button>
-      <div>Hiii{loggedInUser}</div>
       <form onSubmit={handleSubmit} className="user-form">
         <label>
           Enter the Public key:
@@ -62,6 +61,15 @@ const UserForm = ({ loggedInUser }) => {
       <div className='private-key'>
         { privateKey && <h2>Private Key is: {privateKey}</h2> }
         { !privateKey && <h2>No Private key found for this Public Key</h2> }
+      </div>
+      <div className="card">
+      { keys &&
+        <DataTable value={keys} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }}>
+          <Column field="id" header="Id" style={{ width: '25%' }}></Column>
+          <Column field="public_key" header="Public Key" style={{ width: '25%' }}></Column>
+          <Column field="private_key" header="Private Key" style={{ width: '25%' }}></Column>
+        </DataTable>
+      }
       </div>
     </div>
   );

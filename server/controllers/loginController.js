@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const configParams = require('../configuration');
-const connection = require('../databaseConnection');
 
 async function userLogin(req, res) {
   try {
@@ -21,7 +20,6 @@ async function userLogin(req, res) {
         break; 
       }
     }
-    console.log(sessionOTP,'sssssssssssssssss')
     if (otp === sessionOTP) {
       const token = jwt.sign({
         userId: user._id,

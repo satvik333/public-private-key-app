@@ -38,3 +38,38 @@
   background-color: #4caf50;
   max-width: 100px;
 }
+
+.get-all-keys {
+  background-color: #4caf50;
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px;
+  background-color: #fff;
+}
+
+.p-datatable {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.p-datatable th,
+.p-datatable td {
+  padding: 10px;
+}
+
+.p-datatable th {
+  background-color: #f2f2f2;
+}
+
+.p-datatable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.p-paginator {
+  margin-top: 20px;
+}
