@@ -18,7 +18,7 @@ const UserForm = ({ loggedInUser }) => {
     e.preventDefault();
     const result = await getPrivateKey(publicKey);
     if (result.private_key) setPrivateKeyValue(result.private_key);
-    else setPrivateKeyValue(null);
+    else setPrivateKeyValue(false);
   };
 
   async function logout() {
@@ -60,17 +60,17 @@ const UserForm = ({ loggedInUser }) => {
       </form>
       <div className='private-key'>
         { privateKey && <h2>Private Key is: {privateKey}</h2> }
-        { !privateKey && <h2>No Private key found for this Public Key</h2> }
+        { privateKey === false && <h2>No Private key found for this Public Key</h2> }
       </div>
-      <div className="card">
-      { keys &&
-        <DataTable value={keys} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }}>
-          <Column field="id" header="Id" style={{ width: '25%' }}></Column>
-          <Column field="public_key" header="Public Key" style={{ width: '25%' }}></Column>
-          <Column field="private_key" header="Private Key" style={{ width: '25%' }}></Column>
-        </DataTable>
+      { keys.length > 0 &&
+        <div className="card">
+          <DataTable value={keys} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }}>
+            <Column field="id" header="Id" style={{ width: '25%' }}></Column>
+            <Column field="public_key" header="Public Key" style={{ width: '25%' }}></Column>
+            <Column field="private_key" header="Private Key" style={{ width: '25%' }}></Column>
+          </DataTable>
+        </div>
       }
-      </div>
     </div>
   );
 };

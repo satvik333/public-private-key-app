@@ -73,3 +73,12 @@
 .p-paginator {
   margin-top: 20px;
 }
+
+.p-paginator .p-dropdown {
+  width: 6rem; 
+}
+
+.p-paginator .p-dropdown .p-dropdown-items-wrapper {
+  max-height: 8rem; 
+  background-color: grey;
+}

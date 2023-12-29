@@ -9,7 +9,7 @@ const app = express();
 app.use(
   session({
     secret: '1234', // Change this to a secure key
-    cookie: { maxAge: 120000 },
+    cookie: { maxAge: 1800000 },
     saveUninitialized: false,
     store: store,
     resave: false
