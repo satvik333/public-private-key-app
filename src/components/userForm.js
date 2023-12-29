@@ -17,19 +17,21 @@ const UserForm = ({ loggedInUser }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const result = await getPrivateKey(publicKey);
+    if (result.error) navigate('/login');
     if (result.private_key) setPrivateKeyValue(result.private_key);
     else setPrivateKeyValue(false);
   };
 
   async function logout() {
-    navigate('/login')
+    navigate('/login');
     await logOutUser(loggedInUser?.id);
   }
 
   async function clickedOnGetAllKeys() {
     try {
       let allKeys = await getAllKeys();
-      setKeys(allKeys);
+      if (allKeys.error) navigate('/login');
+      else setKeys(allKeys);
     } catch (error) {
       console.error('Error fetching keys:', error);
     }

@@ -11,7 +11,7 @@ function authenticateToken(req, res, next) {
   jwt.verify(token, configParams.jwtSecret, (err, user) => {
     if (err) {
       console.error('Token verification failed:', err.message);
-      return res.sendStatus(403);
+      return res.json({ error: 'Token Expiered' });;
     }
     req.user = user;
     next();

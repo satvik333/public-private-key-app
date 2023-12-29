@@ -20,9 +20,11 @@ function LoginPage({onLogin}) {
 
   const handleSendOtp = async (event) => {
     event.preventDefault();
-    if (validateEmail(email)) setIsOtpSent(true);
-    let result = await verifyEmailAndSendOtp(email);
-    setUser(result.user);
+    if (email) {
+      if (validateEmail(email)) setIsOtpSent(true);
+      let result = await verifyEmailAndSendOtp(email);
+      setUser(result.user);
+    }
   };
 
   function validateEmail(email) {
@@ -39,9 +41,11 @@ function LoginPage({onLogin}) {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    let res = userLogin({ otp, user });
-    onLogin(user);
-    if (res) navigate('/public-private-keys')
+    if (otp) {
+      let res = userLogin({ otp, user });
+      onLogin(user);
+      if (res) navigate('/public-private-keys');
+    }
   };
 
   return (
