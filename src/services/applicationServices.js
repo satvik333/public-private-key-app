@@ -47,7 +47,6 @@ async function getAllKeys() {
 async function userLogin(otpObj) {
   try {
     const response = await axios.post(`${baseUrl}/login`, { otp: otpObj.otp, user: otpObj.user });
-    console.log(response.data.token,'tknknknknknknknknk')
     authToken = response.data.token;
     return response.data;
   } catch (error) {
