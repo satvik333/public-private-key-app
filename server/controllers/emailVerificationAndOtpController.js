@@ -16,6 +16,20 @@ async function verifyEmailAndSendOtp(req, res) {
     const user = results[0];
 
     if (user) {
+      const userId = user.id;
+      let storedData = req.store.sessions;
+
+      for (const sessionID in storedData) {
+        let sessionData = JSON.parse(storedData[sessionID]);
+
+        if (sessionData[userId]) {
+          delete storedData[sessionID];
+          
+          // Destroy the entire session data associated with the session ID
+          req.store.destroy(sessionID);
+          break;
+        }
+      }
       const otp = Math.floor(100000 + Math.random() * 900000).toString();
       req.session[`${user.id}`] = {
         verifiedOTP: otp,

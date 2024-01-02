@@ -69,7 +69,8 @@ function LoginPage({onLogin}) {
             <input type="text" value={otp} onChange={handleOtpChange} />
           </label>
           <br />
-          <button onClick={handleLogin}>Login</button>
+          <button className='login-btn' onClick={handleLogin}>Login</button>
+          <button className='resend-otp' onClick={handleSendOtp}>Resend OTP</button>
         </>
       )}
       <br />
