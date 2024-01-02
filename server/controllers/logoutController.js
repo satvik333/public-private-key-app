@@ -4,17 +4,15 @@ async function userLogOut(req, res) {
   try {
     const userId = req.body.id;
     let storedData = req.store.sessions;
-    let userDetails;
 
     for (const sessionID in storedData) {
-      const sessionData = JSON.parse(storedData[sessionID]);
+      let sessionData = JSON.parse(storedData[sessionID]);
 
       if (sessionData[userId]) {
-        userDetails = sessionData[userId];
-        if (userDetails.userId === userId) {
-          console.log(req.session[userId],'logouttttttttttttttttttt')
-          delete req.session[userId];
-        }
+        delete storedData[sessionID];
+        
+        // Destroy the entire session data associated with the session ID
+        req.store.destroy(sessionID);
         break;
       }
     }
