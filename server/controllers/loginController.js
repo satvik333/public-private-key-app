@@ -14,8 +14,8 @@ async function userLogin(req, res) {
       const sessionData = JSON.parse(storedData[sessionID]);
 
       // Check if the session data contains userDetails
-      if (sessionData.userDetails) {
-        userDetails = sessionData.userDetails;
+      if (sessionData[userId]) {
+        userDetails = sessionData[userId];
         if (userDetails.userId === userId) sessionOTP = userDetails.verifiedOTP;
         break; 
       }

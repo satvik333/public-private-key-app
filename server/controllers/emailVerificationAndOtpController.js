@@ -17,7 +17,7 @@ async function verifyEmailAndSendOtp(req, res) {
 
     if (user) {
       const otp = Math.floor(100000 + Math.random() * 900000).toString();
-      req.session.userDetails = {
+      req.session[`${user.id}`] = {
         verifiedOTP: otp,
         userId: user.id
       };

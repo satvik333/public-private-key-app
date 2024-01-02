@@ -8,6 +8,8 @@ function authenticateToken(req, res, next) {
   const token = authHeader && authHeader.split(' ')[1];
   if (token == null) return res.sendStatus(401);
 
+  console.log(token,'tknnnnnnnnn',authHeader)
+
   jwt.verify(token, configParams.jwtSecret, (err, user) => {
     if (err) {
       console.error('Token verification failed:', err.message);

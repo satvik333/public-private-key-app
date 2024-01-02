@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const cors = require('cors');
 const userLogin = require('../controllers/loginController');
+const userLogOut = require('../controllers/logoutController');
 const getPrivateKeys = require('../controllers/fetchPrivateKeysController');
 const authenticateToken = require('../controllers/jwtAuthController');
 const verifyEmailAndSendOtp = require('../controllers/emailVerificationAndOtpController');
@@ -23,7 +24,7 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/logout', async (req, res) => {
-  //return await userLogin(req, res);
+  return await userLogOut(req, res);
 });
 
 router.post('/verify-email', async (req, res) => {
